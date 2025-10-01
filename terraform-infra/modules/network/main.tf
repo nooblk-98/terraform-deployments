@@ -1,0 +1,1 @@
+# Sample network module stub

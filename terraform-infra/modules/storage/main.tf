@@ -1,0 +1,1 @@
+# Sample storage module stub

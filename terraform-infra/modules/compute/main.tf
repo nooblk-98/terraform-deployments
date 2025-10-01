@@ -1,0 +1,1 @@
+# Sample compute module stub
