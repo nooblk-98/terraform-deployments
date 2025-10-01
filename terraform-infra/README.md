@@ -44,6 +44,29 @@ terraform-infra/
 
    Replace `dev` and `aws` with your target environment and provider.
 
+## Common Terraform Commands
+
+| Command | Description |
+|---------|-------------|
+| `terraform init` | Initialize Terraform configuration and download providers |
+| `terraform plan -var-file=<env tfvars>` | Show execution plan using environment variables |
+| `terraform apply -var-file=<env tfvars>` | Apply changes using environment variables |
+| `terraform destroy -var-file=<env tfvars>` | Destroy resources using environment variables |
+| `terraform fmt` | Format Terraform code |
+| `terraform validate` | Validate Terraform configuration files |
+| `terraform output` | Show output values after apply |
+
+### Example Usage (AWS Dev)
+
+```sh
+cd providers/aws
+terraform init
+terraform plan -var-file=../../envs/dev/aws.tfvars
+terraform apply -var-file=../../envs/dev/aws.tfvars
+terraform output
+terraform destroy -var-file=../../envs/dev/aws.tfvars
+```
+
 ## Modules
 
 Reusable modules are in `modules/` and can be referenced from provider configs:

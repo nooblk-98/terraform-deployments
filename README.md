@@ -44,6 +44,56 @@ terraform-infra/
 
    Replace `dev` and `aws` with your target environment and provider.
 
+## How to Run
+
+Follow these steps to deploy infrastructure using Terraform:
+
+1. **Navigate to the provider directory**  
+   Example for AWS:
+   ```sh
+   cd terraform-infra/providers/aws
+   ```
+
+2. **Initialize Terraform**  
+   ```sh
+   terraform init
+   ```
+
+3. **Plan the deployment**  
+   Use the appropriate environment tfvars file:
+   ```sh
+   terraform plan -var-file=../../envs/dev/aws.tfvars
+   ```
+
+4. **Apply the deployment**  
+   ```sh
+   terraform apply -var-file=../../envs/dev/aws.tfvars
+   ```
+
+5. **Check outputs**  
+   ```sh
+   terraform output
+   ```
+
+6. **Destroy resources (when needed)**  
+   ```sh
+   terraform destroy -var-file=../../envs/dev/aws.tfvars
+   ```
+
+Replace `dev` and `aws` with your target environment and provider as needed.
+
+## Common Terraform Commands
+
+| Command | Description |
+|---------|-------------|
+| `terraform init` | Initialize Terraform configuration and download providers |
+| `terraform plan -var-file=<env tfvars>` | Show execution plan using environment variables |
+| `terraform apply -var-file=<env tfvars>` | Apply changes using environment variables |
+| `terraform destroy -var-file=<env tfvars>` | Destroy resources using environment variables |
+| `terraform fmt` | Format Terraform code |
+| `terraform validate` | Validate Terraform configuration files |
+| `terraform output` | Show output values after apply |
+
 ## Modules
 
 Reusable modules are in `modules/` and can be referenced from provider configs:
@@ -79,3 +129,49 @@ After apply, Terraform will show resource outputs defined in `outputs.tf`.
 ## License
 
 MIT
+
+## Installation Guide (Windows)
+
+### 1. Install Chocolatey
+
+Open PowerShell as Administrator and check your execution policy:
+
+```powershell
+Get-ExecutionPolicy
+```
+
+If it returns `Restricted`, run one of the following to change it:
+
+```powershell
+Set-ExecutionPolicy AllSigned
+```
+or
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process
+```
+
+Then install Chocolatey:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+Verify installation:
+
+```powershell
+choco -?
+```
+
+### 2. Install Terraform via Chocolatey
+
+Once Chocolatey is installed, run:
+
+```powershell
+choco install terraform -y
+```
+
+Verify Terraform installation:
+
+```powershell
+terraform -version
+```
