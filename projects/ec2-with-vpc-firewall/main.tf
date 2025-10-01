@@ -1,0 +1,57 @@
+provider "aws" {
+  region = var.aws_region
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  tags = { Name = "main-vpc" }
+}
+
+resource "aws_subnet" "main" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = var.aws_az
+  tags = { Name = "main-subnet" }
+}
+
+resource "aws_security_group" "ssh" {
+  name        = "allow_ssh"
+  description = "Allow SSH inbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = { Name = "allow_ssh" }
+}
+
+resource "aws_key_pair" "root_key" {
+  key_name   = "root-key"
+  public_key = var.ssh_public_key
+}
+
+resource "aws_instance" "ec2" {
+  ami                         = var.ami_id
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.main.id
+  vpc_security_group_ids      = [aws_security_group.ssh.id]
+  key_name                    = aws_key_pair.root_key.key_name
+
+  tags = { Name = "ec2-with-vpc-firewall" }
+}
+
+resource "aws_eip" "ec2_eip" {
+  instance = aws_instance.ec2.id
+  vpc      = true
+}
