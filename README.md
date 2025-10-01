@@ -6,7 +6,7 @@ This repository provides a modular, multi-cloud Terraform infrastructure setup s
 
 ```
 terraform-infra/
-├── providers/      # Provider-specific configs (AWS, Azure, GCP, Kubernetes)
+├── providers/      # Provider-specific configs (AWS, Azure, GCP, Kubernetes, Cloudflare)
 ├── modules/        # Reusable modules (network, compute, database, storage)
 ├── envs/           # Environment-specific variable files (dev, staging, prod)
 ├── versions.tf     # Terraform and provider version requirements
@@ -68,9 +68,10 @@ terraform -version
    - Azure: Authenticate via `az login` or set environment variables.
    - GCP: Set up your service account and `GOOGLE_APPLICATION_CREDENTIALS`.
    - Kubernetes: Ensure your `kubeconfig` is available.
+   - Cloudflare: Set `cloudflare_email` and `cloudflare_api_key` in `terraform.tfvars`.
 
 3. **Select Environment**  
-   Choose the environment (`dev`, `staging`, `prod`) and provider (`aws`, `azure`, `gcp`, `kubernetes`).
+   Choose the environment (`dev`, `staging`, `prod`) and provider (`aws`, `azure`, `gcp`, `kubernetes`, `cloudflare`).
 
 4. **Initialize Terraform**  
    Navigate to the provider directory and initialize:
@@ -96,6 +97,10 @@ Follow these steps to deploy infrastructure using Terraform:
    Example for AWS:
    ```sh
    cd terraform-infra/providers/aws
+   ```
+   Example for Cloudflare:
+   ```sh
+   cd terraform-infra/providers/cloudflare
    ```
 
 2. **Initialize Terraform**  
@@ -164,6 +169,15 @@ cd providers/aws
 terraform init
 terraform plan -var-file=../../envs/dev/aws.tfvars
 terraform apply -var-file=../../envs/dev/aws.tfvars
+```
+
+## Example: Deploy Cloudflare Zone
+
+```sh
+cd providers/cloudflare
+terraform init
+terraform plan -var-file=terraform.tfvars
+terraform apply -var-file=terraform.tfvars
 ```
 
 ## Outputs
