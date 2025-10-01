@@ -16,8 +16,52 @@ terraform-infra/
 
 ## Getting Started
 
-1. **Install Terraform**  
-   Download and install Terraform from [terraform.io](https://www.terraform.io/downloads.html).
+## Installation Guide (Windows)
+
+### 1. Install Chocolatey
+
+Open PowerShell as Administrator and check your execution policy:
+
+```powershell
+Get-ExecutionPolicy
+```
+
+If it returns `Restricted`, run one of the following to change it:
+
+```powershell
+Set-ExecutionPolicy AllSigned
+```
+or
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process
+```
+
+Then install Chocolatey:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+Verify installation:
+
+```powershell
+choco -?
+```
+
+### 2. Install Terraform via Chocolatey
+
+Once Chocolatey is installed, run:
+
+```powershell
+choco install terraform -y
+```
+
+Verify Terraform installation:
+
+```powershell
+terraform -version
+```
+
 
 2. **Configure Provider Credentials**  
    - AWS: Set up your AWS credentials (`~/.aws/credentials` or environment variables).
@@ -130,48 +174,3 @@ After apply, Terraform will show resource outputs defined in `outputs.tf`.
 
 MIT
 
-## Installation Guide (Windows)
-
-### 1. Install Chocolatey
-
-Open PowerShell as Administrator and check your execution policy:
-
-```powershell
-Get-ExecutionPolicy
-```
-
-If it returns `Restricted`, run one of the following to change it:
-
-```powershell
-Set-ExecutionPolicy AllSigned
-```
-or
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process
-```
-
-Then install Chocolatey:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-```
-
-Verify installation:
-
-```powershell
-choco -?
-```
-
-### 2. Install Terraform via Chocolatey
-
-Once Chocolatey is installed, run:
-
-```powershell
-choco install terraform -y
-```
-
-Verify Terraform installation:
-
-```powershell
-terraform -version
-```
