@@ -36,17 +36,12 @@ resource "aws_security_group" "ssh" {
   tags = { Name = "allow_ssh" }
 }
 
-resource "aws_key_pair" "root_key" {
-  key_name   = "root-key"
-  public_key = var.ssh_public_key
-}
-
 resource "aws_instance" "ec2" {
   ami                         = var.ami_id
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.main.id
   vpc_security_group_ids      = [aws_security_group.ssh.id]
-  key_name                    = aws_key_pair.root_key.key_name
+  key_name                    = "root-key"
 
   tags = { Name = "ec2-with-vpc-firewall" }
 }
@@ -72,3 +67,5 @@ resource "aws_route_table_association" "main" {
   subnet_id      = aws_subnet.main.id
   route_table_id = aws_route_table.main.id
 }
+
+
