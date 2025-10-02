@@ -188,3 +188,72 @@ After apply, Terraform will show resource outputs defined in `outputs.tf`.
 
 MIT
 
+# Terraform Deployments
+
+## Prerequisites
+
+Before running Terraform, you need to configure your AWS credentials and any other required secrets.
+
+### AWS Credentials
+
+Terraform uses the AWS provider, which requires access keys to authenticate. You can provide credentials in several ways:
+
+#### 1. Using AWS CLI
+
+Configure your credentials using the AWS CLI:
+
+```sh
+aws configure
+```
+
+This will prompt you for your AWS Access Key ID, Secret Access Key, region, and output format.
+
+#### 2. Environment Variables
+
+You can set the following environment variables:
+
+```sh
+export AWS_ACCESS_KEY_ID=your-access-key-id
+export AWS_SECRET_ACCESS_KEY=your-secret-access-key
+export AWS_DEFAULT_REGION=us-east-1
+```
+
+#### 3. Shared Credentials File
+
+Store your credentials in `~/.aws/credentials`:
+
+```
+[default]
+aws_access_key_id = your-access-key-id
+aws_secret_access_key = your-secret-access-key
+```
+
+### Other Credentials
+
+If your deployment requires other secrets (e.g., SSH keys), ensure they are provided as required by the Terraform variables (see `variables.tf`). For example, you may need to set the `ssh_public_key` variable.
+
+## Running Terraform
+
+1. Initialize Terraform:
+
+   ```sh
+   terraform init
+   ```
+
+2. Plan the deployment:
+
+   ```sh
+   terraform plan
+   ```
+
+3. Apply the deployment:
+
+   ```sh
+   terraform apply
+   ```
+
+## Notes
+
+- Never commit your credentials to source control.
+- Use IAM roles and policies to restrict access as needed.
+
