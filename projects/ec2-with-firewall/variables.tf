@@ -1,0 +1,26 @@
+variable "aws_region" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "aws_az" {
+  type    = string
+  default = "us-east-1a"
+}
+
+variable "ami_id" {
+  type        = string
+  description = "AMI ID for Amazon Linux 2"
+  default     = "ami-0c02fb55956c7d316"
+}
+
+variable "ssh_public_key" {
+  type        = string
+  description = "Your SSH public key for root access"
+}
+
+variable "firewall_name" {
+  type        = string
+  description = "Name of the firewall security group"
+  default     = "application-firewall"
+}
