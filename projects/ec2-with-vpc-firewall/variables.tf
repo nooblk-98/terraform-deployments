@@ -18,3 +18,8 @@ variable "ssh_public_key" {
   type        = string
   description = "Your SSH public key for root access"
 }
+
+variable "key_name" {
+  type        = string
+  description = "Name of an existing AWS EC2 Key Pair to use for SSH"
+}
