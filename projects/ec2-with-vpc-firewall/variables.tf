@@ -23,3 +23,9 @@ variable "key_name" {
   type        = string
   description = "Name of an existing AWS EC2 Key Pair to use for SSH"
 }
+
+variable "ec2_name" {
+  type        = string
+  description = "Name of EC2 "
+}
+

@@ -72,8 +72,7 @@ resource "aws_instance" "ec2" {
   subnet_id              = aws_subnet.main.id
   vpc_security_group_ids = [aws_security_group.ssh.id, aws_security_group.web.id]
   key_name               = var.key_name // Make sure this matches an actual AWS EC2 key pair name
-
-  tags = { Name = "ec2-with-vpc-firewall" }
+  tags = var.ec2_name
 }
 
 resource "aws_eip" "ec2_eip" {
